@@ -45,7 +45,7 @@ export default function Header() {
             <div className="flex items-center gap-4">
               <Link to="/" className="flex items-center">
                 <span className="text-2xl font-black tracking-tighter text-foreground">
-                  СINЕMАK
+                  СINЕMАRK
                 </span>
               </Link>
               <button

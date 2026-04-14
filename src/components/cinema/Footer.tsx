@@ -107,7 +107,7 @@ export default function Footer() {
       <div className="border-t border-border">
         <div className="container py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p className="text-xs text-muted-foreground">
-            Соrуright © {new Date().getFullYear()} Сinemаk
+            Соrуright © {new Date().getFullYear()} Сinemаrk
           </p>
           <div className="flex gap-4">
             <a href="#" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
