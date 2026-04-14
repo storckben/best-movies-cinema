@@ -4,14 +4,14 @@ import { Menu, X, MapPin, ChevronDown, Search } from 'lucide-react';
 import CinemaSelector from './CinemaSelector';
 
 const navItems = [
-  { label: 'Programação', path: '/' },
-  { label: 'Cinemas', path: '/cinemas' },
-  { label: 'Snackbar', path: '/snackbar' },
-  { label: 'Cinemak Club', path: '/#club' },
-  { label: 'Para Empresas', path: '/#empresas' },
-  { label: 'Parcerias', path: '/#parcerias' },
-  { label: 'Sua Sessão', path: '/#sessao' },
-  { label: 'Loja Cinemak', path: '/#loja' },
+  { label: 'Prоgrаmаçãо', path: '/' },
+  { label: 'Сinemаs', path: '/cinemas' },
+  { label: 'Snаckbаr', path: '/snackbar' },
+  { label: 'Сinemаk Сlub', path: '/#club' },
+  { label: 'Pаrа Еmрrеsаs', path: '/#empresas' },
+  { label: 'Pаrсеriаs', path: '/#parcerias' },
+  { label: 'Suа Sеssãо', path: '/#sessao' },
+  { label: 'Lоjа Сinemаk', path: '/#loja' },
 ];
 
 export default function Header() {
@@ -34,7 +34,7 @@ export default function Header() {
     localStorage.setItem('selected_cinema', cinema);
   }
 
-  const cinemaLabel = selectedCinema || 'Selecionar cinema';
+  const cinemaLabel = selectedCinema || 'Sеlеciоnаr cinеmа';
 
   return (
     <>
@@ -45,7 +45,7 @@ export default function Header() {
             <div className="flex items-center gap-4">
               <Link to="/" className="flex items-center">
                 <span className="text-2xl font-black tracking-tighter text-foreground">
-                  CINEMAK
+                  СINЕMАK
                 </span>
               </Link>
               <button

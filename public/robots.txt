@@ -1,14 +1,23 @@
+User-agent: *
+Disallow: /
+
 User-agent: Googlebot
-Allow: /
+Disallow: /
 
 User-agent: Bingbot
-Allow: /
+Disallow: /
 
 User-agent: Twitterbot
-Allow: /
+Disallow: /
 
 User-agent: facebookexternalhit
-Allow: /
+Disallow: /
 
-User-agent: *
-Allow: /
+User-agent: LinkedInBot
+Disallow: /
+
+User-agent: WhatsApp
+Disallow: /
+
+User-agent: TelegramBot
+Disallow: /

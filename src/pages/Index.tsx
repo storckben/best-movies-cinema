@@ -22,9 +22,9 @@ export default function Index() {
     <div className="min-h-screen bg-background">
       <Header />
       <HeroBanner movies={movies} />
-      <MovieSection title="Em Cartaz" movies={nowPlaying} />
-      {preSale.length > 0 && <MovieSection title="Pré-venda" movies={preSale} />}
-      <MovieSection title="Em Breve" movies={comingSoon} />
+      <MovieSection title="Еm Саrtаz" movies={nowPlaying} />
+      {preSale.length > 0 && <MovieSection title="Рrе-vеndа" movies={preSale} />}
+      <MovieSection title="Еm Brеvе" movies={comingSoon} />
       <Footer />
     </div>
   );

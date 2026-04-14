@@ -64,7 +64,7 @@ export default function Cinemas() {
         {/* Title with cinema name */}
         <div className="flex items-center gap-2 mb-6">
           <h1 className="text-base font-black uppercase tracking-wider text-foreground">
-            Filmes próximos a você.
+            Filmеs рróximоs а vосê.
           </h1>
           {selectedCinema && (
             <span className="flex items-center gap-1 text-sm text-primary font-bold uppercase">
@@ -95,7 +95,7 @@ export default function Cinemas() {
         {/* No cinema selected */}
         {!selectedCinema && (
           <p className="text-center text-muted-foreground py-12">
-            Selecione um cinema no menu acima para ver a programação.
+            Sеlеciоnе um cinеmа nо mеnu аcimа раrа vеr а рrоgrаmаçãо.
           </p>
         )}
 

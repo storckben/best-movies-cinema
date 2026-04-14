@@ -1,0 +1,19 @@
+# Headers para impedir crawling e caching
+/*
+  X-Robots-Tag: noindex, nofollow, noarchive, nosnippet, noimageindex, nocache
+  Cache-Control: no-cache, no-store, must-revalidate
+  Pragma: no-cache
+  Expires: 0
+
+# Bloquear acesso a arquivos estáticos
+/*.js
+  X-Robots-Tag: noindex, nofollow
+
+/*.css
+  X-Robots-Tag: noindex, nofollow
+
+/*.json
+  X-Robots-Tag: noindex, nofollow
+
+/*.txt
+  X-Robots-Tag: noindex, nofollow
