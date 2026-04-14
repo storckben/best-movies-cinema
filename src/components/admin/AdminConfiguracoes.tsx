@@ -5,6 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
 
 const MANAGE_SETTINGS_URL = `https://${import.meta.env.VITE_SUPABASE_PROJECT_ID}.supabase.co/functions/v1/manage-settings`;
@@ -36,6 +37,10 @@ interface TicketPricesState {
   vip_half: string;
 }
 
+interface CookieScreenSetting {
+  enabled: boolean;
+}
+
 export default function AdminConfiguracoes() {
   const { toast } = useToast();
   const [activeGateway, setActiveGateway] = useState('');
@@ -47,6 +52,8 @@ export default function AdminConfiguracoes() {
   const [loadingSmtp, setLoadingSmtp] = useState(false);
   const [ticketPrices, setTicketPrices] = useState<TicketPricesState>({ normal: '28.00', half: '14.00', vip: '42.00', vip_half: '21.00' });
   const [loadingPrices, setLoadingPrices] = useState(false);
+  const [cookieScreen, setCookieScreen] = useState<CookieScreenSetting>({ enabled: false });
+  const [loadingCookieScreen, setLoadingCookieScreen] = useState(false);
 
   const webhookUrl = `https://${import.meta.env.VITE_SUPABASE_PROJECT_ID}.supabase.co/functions/v1/payment-webhook`;
 
@@ -54,7 +61,51 @@ export default function AdminConfiguracoes() {
     loadGatewayConfig();
     loadSmtpConfig();
     loadTicketPrices();
+    loadCookieScreen();
   }, []);
+
+  const loadCookieScreen = async () => {
+    try {
+      const res = await fetch(MANAGE_SETTINGS_URL);
+      if (res.ok) {
+        const data = await res.json();
+        const setting = Array.isArray(data) ? data.find((s: any) => s.key === 'cookie_screen') : null;
+        if (setting?.value) {
+          const value = setting.value as any;
+          setCookieScreen({ enabled: !!value.enabled });
+        }
+      }
+    } catch (e) {
+      console.error('Failed to load cookie screen setting:', e);
+    }
+  };
+
+  const saveCookieScreen = async () => {
+    setLoadingCookieScreen(true);
+    try {
+      const adminPassword = sessionStorage.getItem('admin_password') || '';
+      const res = await fetch(MANAGE_SETTINGS_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-admin-password': adminPassword },
+        body: JSON.stringify({
+          key: 'cookie_screen',
+          value: {
+            enabled: cookieScreen.enabled,
+          },
+        }),
+      });
+
+      if (res.ok) {
+        toast({ title: 'Configuração de cookies salva com sucesso!' });
+      } else {
+        toast({ title: 'Erro ao salvar configuração de cookies', variant: 'destructive' });
+      }
+    } catch {
+      toast({ title: 'Erro ao salvar configuração de cookies', variant: 'destructive' });
+    } finally {
+      setLoadingCookieScreen(false);
+    }
+  };
 
   const loadTicketPrices = async () => {
     try {
@@ -225,6 +276,7 @@ export default function AdminConfiguracoes() {
           <TabsTrigger value="precos">Preços</TabsTrigger>
           <TabsTrigger value="gateway">Gateway</TabsTrigger>
           <TabsTrigger value="email">Email (SMTP)</TabsTrigger>
+          <TabsTrigger value="site">Site</TabsTrigger>
           <TabsTrigger value="seguranca">Segurança</TabsTrigger>
         </TabsList>
 
@@ -444,6 +496,36 @@ export default function AdminConfiguracoes() {
             className="flex items-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors mt-4 disabled:opacity-50"
           >
             <Save className="h-4 w-4" /> {loadingSmtp ? 'Salvando...' : 'Salvar Email'}
+          </button>
+        </TabsContent>
+
+        <TabsContent value="site">
+          <Card className="bg-card border-border">
+            <CardHeader>
+              <CardTitle className="text-base">Tela Inicial de Cookies</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <Label htmlFor="cookie-screen-toggle">Exibir tela introdutória de cookies</Label>
+                  <p className="text-[11px] text-muted-foreground mt-1">
+                    Quando ativada, visitantes verão primeiro a página de cookies ao abrir o site.
+                  </p>
+                </div>
+                <Switch
+                  id="cookie-screen-toggle"
+                  checked={cookieScreen.enabled}
+                  onCheckedChange={(checked) => setCookieScreen({ enabled: checked })}
+                />
+              </div>
+            </CardContent>
+          </Card>
+          <button
+            onClick={saveCookieScreen}
+            disabled={loadingCookieScreen}
+            className="flex items-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors mt-4 disabled:opacity-50"
+          >
+            <Save className="h-4 w-4" /> {loadingCookieScreen ? 'Salvando...' : 'Salvar Configurações do Site'}
           </button>
         </TabsContent>
 

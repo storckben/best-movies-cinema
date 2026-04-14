@@ -4,7 +4,8 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import MaintenanceGate from "@/components/cinema/MaintenanceGate";
-import Index from "./pages/Index.tsx";
+import HomeEntry from "./pages/HomeEntry.tsx";
+import Cookies from "./pages/Cookies.tsx";
 import Movies from "./pages/Movies.tsx";
 import MovieDetail from "./pages/MovieDetail.tsx";
 import Cinemas from "./pages/Cinemas.tsx";
@@ -22,7 +23,8 @@ const App = () => (
       <BrowserRouter>
         <MaintenanceGate>
           <Routes>
-            <Route path="/" element={<Index />} />
+            <Route path="/" element={<HomeEntry />} />
+            <Route path="/cookies" element={<Cookies />} />
             <Route path="/filmes" element={<Movies />} />
             <Route path="/filme/:id" element={<MovieDetail />} />
             <Route path="/cinemas" element={<Cinemas />} />

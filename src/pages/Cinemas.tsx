@@ -69,7 +69,7 @@ export default function Cinemas() {
           {selectedCinema && (
             <span className="flex items-center gap-1 text-sm text-primary font-bold uppercase">
               <MapPin className="h-4 w-4" />
-              {selectedCinema.replace('Cinemak ', '')}
+              {selectedCinema.replace('Cinemark ', '')}
             </span>
           )}
         </div>
